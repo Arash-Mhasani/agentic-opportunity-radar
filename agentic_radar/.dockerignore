@@ -1,0 +1,6 @@
+**/__pycache__/
+**/*.pyc
+**/message_bus/
+**/*.db
+.env
+docs/

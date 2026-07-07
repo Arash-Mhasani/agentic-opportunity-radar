@@ -1,0 +1,56 @@
+# policies.yaml — structural gating rules for the Policy Server (Day-5 sl.30-31).
+#
+# Format follows the Day-5 SkCC guidance: structured config with nesting depth > 3
+# lives in YAML (51.9% parse accuracy vs 43.1% JSON), narrative lives in Markdown.
+#
+# Two layers are enforced by governance/policy_server.py:
+#   1. Structural Gating (these rules) — fast, deterministic role/environment checks.
+#   2. Semantic Gating (in code) — an LLM/PII screen for *how* an allowed tool is used.
+
+# Per-environment hard blocks (the radar's "environment" comes from RADAR_ENV).
+environments:
+  development:
+    blocked_tools: []
+  production:
+    # nothing extra blocked in prod for the radar; writes are still HITL + semantic gated
+    blocked_tools: []
+  localhost:
+    # mirror the Day-5 example: never send mail from a local dev run
+    blocked_tools:
+      - send_email
+
+# Per-role allow-lists. The radar process runs as role "radar".
+roles:
+  radar:
+    allowed_tools:
+      # reads (default posture is read-only)
+      - notion-search
+      - notion-fetch
+      - getMyPlaylists
+      - getPlaylistItems
+      - getTranscript
+      - read_bus_record
+      - read_reference
+      # writes — allowed at the structural layer, but still pass HITL + semantic gating
+      - notion-create-pages
+      - notion-update-page
+  viewer:
+    allowed_tools:
+      - notion-search
+      - notion-fetch
+      - read_bus_record
+
+# Tools whose ARGUMENTS must clear the semantic gate before execution
+# (i.e. anything that writes to or sends data into an external system).
+semantic_check_tools:
+  - notion-create-pages
+  - notion-update-page
+  - notion-append-block-children
+  - send_email
+
+# PII the deterministic fallback screen looks for when no judge LLM is available.
+# (The semantic gate prefers an LLM; this regex screen is the offline backstop.)
+pii_kinds:
+  - email
+  - api_key
+  - private_url

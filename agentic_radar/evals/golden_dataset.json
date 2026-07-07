@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "description": "Golden dataset for the Opportunity Radar. Covers routing (dimension 6), functional/constraint checks (dimensions 1,2,5), and adversarial cases (Day-3 red-team: one rephrasing + one negative-boundary per positive).",
+  "routing_cases": [
+    {"category": "paper",       "expected_skill": "summarize-academic-paper"},
+    {"category": "video",       "expected_skill": "analyze-youtube-transcript"},
+    {"category": "social",      "expected_skill": "analyze-social-sentiment"},
+    {"category": "grant",       "expected_skill": "analyze-funding-signal"},
+    {"category": "job",         "expected_skill": "analyze-job-signal"},
+    {"category": "market",      "expected_skill": "analyze-market-signal"},
+    {"category": "investment",  "expected_skill": "analyze-market-signal"},
+    {"category": "startup",     "expected_skill": "analyze-market-signal"},
+    {"category": "unknown_xyz", "expected_skill": "analyze-market-signal"}
+  ],
+  "good_idea_examples": [
+    {
+      "id": "tactile-cal",
+      "title": "Tactile sensor calibration SaaS",
+      "description": "A software-only calibration service that maps raw tactile-array signals to contact geometry for bimanual manipulation startups, sold via API.",
+      "revenue_path": "Per-seat API licenses to 20-30 humanoid startups at $3-5k/mo.",
+      "adjacent_tech_transfer": "Self-supervised representation learning from vision transferred to tactile arrays."
+    }
+  ],
+  "adversarial_cases": [
+    {
+      "label": "negative-boundary: hardware ask must be rejected by constraint check",
+      "idea": {"id": "bad-hw", "title": "Cheaper robot arm", "description": "Build a new low-cost humanoid robot arm.", "revenue_path": "Sell hardware units.", "adjacent_tech_transfer": "n/a"},
+      "expect_constraint_pass": false
+    },
+    {
+      "label": "negative-boundary: foundation-model ask must be rejected",
+      "idea": {"id": "bad-fm", "title": "Robotics foundation model", "description": "Build a new foundation model for robotic manipulation from scratch.", "revenue_path": "License the model.", "adjacent_tech_transfer": "n/a"},
+      "expect_constraint_pass": false
+    },
+    {
+      "label": "rephrasing: a valid software wedge must pass constraint check",
+      "idea": {"id": "ok-sim", "title": "Sim-to-real friction datasets", "description": "Generate and sell domain-randomized friction-model datasets for teleoperation overnight on rented compute.", "revenue_path": "Dataset subscriptions to manipulation teams.", "adjacent_tech_transfer": "Domain randomization from synthetic-data research applied to contact dynamics."},
+      "expect_constraint_pass": true
+    }
+  ],
+  "skill_record_cases": [
+    {
+      "category": "grant",
+      "raw": {"source": "GrantsGov", "title": "[DOD] Dexterous Manipulation for Logistics", "summary": "Open federal funding. Matched: robotics.", "url": "https://grants.gov/x", "category": "grant"},
+      "must_have_keys": ["source_type", "summary", "url"]
+    }
+  ]
+}

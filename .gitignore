@@ -1,0 +1,12 @@
+# secrets — never commit
+agentic_radar/.env
+.env
+
+# runtime artifacts
+__pycache__/
+*.pyc
+agentic_radar/memory/dynamic_memory.db
+agentic_radar/message_bus/
+
+# OS noise
+.DS_Store

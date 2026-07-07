@@ -1,0 +1,59 @@
+# schemas.yaml — structural data contracts for the Opportunity Radar.
+#
+# Per Day-5 (SkCC, Ouyang et al. 2026): structured config / data schemas with nesting
+# depth > 3 belong in YAML (51.9% parse accuracy vs 43.1% JSON, 33.8% XML), while
+# narrative instructions stay in Markdown (opportunity_radar.spec.md). These schemas are
+# the contracts the agents must satisfy; they are validated by evals/rubric.py and tests/.
+
+signal:                       # produced by fetchers/radars/connectors -> message bus (raw)
+  required: [source, title, url, category]
+  properties:
+    source:   {type: string, desc: "origin, e.g. arXiv, GrantsGov, YCombinator, youtube"}
+    title:    {type: string}
+    url:      {type: string}
+    summary:  {type: string, desc: "raw text; may be a full transcript"}
+    category: {type: string, enum: [paper, video, social, grant, job, market, investment, startup, other]}
+
+compressed_record:            # produced by the source-skill layer -> message bus (compressed)
+  required: [source_type, summary, url]
+  properties:
+    source_type:        {type: string}
+    title:              {type: string}
+    summary:            {type: string, desc: "1-2 sentences, model-written, not verbatim"}
+    pain_point:         {type: [string, "null"], desc: "the specific robotics bottleneck or null"}
+    adjacent_transfer:  {type: [string, "null"], desc: "transferable adjacent technique or null"}
+    entities:           {type: array, items: {type: string}}
+    evergreen_candidate:{type: boolean}
+    url:                {type: string}
+
+opportunity:                  # produced by the business node; scored by the Elo tournament
+  required: [id, title, description, revenue_path, adjacent_tech_transfer]
+  properties:
+    id:                    {type: string, desc: "short slug"}
+    title:                 {type: string, desc: "3-5 words"}
+    description:           {type: string, desc: "1-2 sentence pitch"}
+    revenue_path:          {type: string, desc: "how this reaches ~$1M/yr"}
+    adjacent_tech_transfer:{type: string, desc: "the specific adjacent technique"}
+    first_motion:          {type: string, desc: "first shippable thing in <=2 weeks"}
+    elo_score:             {type: number, default: 1200}
+
+policy_decision:              # returned by governance/policy_server.py
+  required: [allowed, layer]
+  properties:
+    allowed: {type: boolean}
+    layer:   {type: string, enum: [structural, semantic, ok]}
+    reason:  {type: string}
+
+# Hard constraints (the founder's North Star). Enforced in CODE, not prose, so they
+# hold even if a skill fails to trigger (memory/static_memory.json + evals/rubric.py).
+constraints:
+  solo:                 true
+  max_hours_per_week:   20
+  capital:              low          # five-figure / grant scale, no hardware capex
+  domain:               robotics
+  path:                 entrepreneur
+  rank_by:              market_opportunity   # never skill-proximity
+  banned:
+    - build a foundation model
+    - build a new robot
+    - robot/hardware manufacturing

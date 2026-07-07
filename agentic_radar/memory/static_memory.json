@@ -1,0 +1,42 @@
+{
+  "profile": {
+    "name": "Arash",
+    "background": [
+      "GNSS/INS navigation", "sensor fusion", "mobile sensors",
+      "inertial measurement", "ML/AI", "state estimation",
+      "Kalman filters", "optimization", "C++/Python",
+      "real-time systems", "sensor modeling"
+    ],
+    "background_note": "ASSET, NOT A CONSTRAINT — fully willing to leave GNSS/INS behind and master entirely new domains for the right opportunity.",
+    "location": "California, United States",
+    "goal": "Capture a piece of the US humanoid robotics market as an ENTREPRENEUR — $1M+/year within 12-24 months by adding value to existing humanoid/robotics businesses. NOT seeking employment.",
+    "target_timeline": "12-24 months",
+    "risk_tolerance": "High"
+  },
+  "constraints": {
+    "team": "Solo founder — exactly ONE person, no employees",
+    "time": "Maximum 20 hours/week",
+    "capital": "Small grant-scale funds (five figures), no VC raised",
+    "opportunity_selection_rule": "Rank purely by market opportunity. NEVER filter by proximity to current skills."
+  },
+  "few_shot_good_opportunities": [
+    {
+      "description": "Provide specialized tactile sensor calibration software for bimanual manipulation startups.",
+      "reason": "Solves a painful bottleneck for humanoid startups, requires low capital, can be sold B2B via API/licenses, and fits a solo founder."
+    },
+    {
+      "description": "Build an automated synthetic data generation pipeline using Isaac Sim for teleoperation tasks.",
+      "reason": "High demand for sim-to-real data; you can run compute overnight and sell the datasets or the generation service as a solo founder."
+    }
+  ],
+  "few_shot_bad_opportunities": [
+    {
+      "description": "Build a new foundation model for robotic manipulation.",
+      "reason": "Requires massive compute (VC funding) and a large team. Violates the solo founder constraint."
+    },
+    {
+      "description": "Start a company to build a cheaper humanoid robot arm.",
+      "reason": "Hardware startups require high capital and full-time dedication. Violates the 20 hr/week and low capital constraints."
+    }
+  ]
+}

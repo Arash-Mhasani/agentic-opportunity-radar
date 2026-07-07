@@ -1,0 +1,12 @@
+{
+  "scores": {
+    "trigger_routing": 1.0,
+    "skill_conformance": 1.0,
+    "execution_elo": 1.0,
+    "functional_correctness": 1.0,
+    "quality": 1.0,
+    "adversarial_constraint": 1.0,
+    "denial_of_wallet_breaker": 1.0,
+    "self_repair_json": 1.0
+  }
+}

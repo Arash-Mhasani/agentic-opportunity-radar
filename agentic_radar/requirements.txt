@@ -1,0 +1,19 @@
+# Core
+anthropic>=0.40.0
+requests>=2.31.0
+feedparser>=6.0.10
+pyyaml>=6.0
+
+# Optional heterogeneous judge (model diversity for the Elo tournament)
+google-generativeai>=0.8.0
+
+# MCP (consume, don't build) — needed to actually talk to Notion / YouTube / GitHub MCP
+mcp>=1.2.0
+anyio>=4.0.0
+
+# Dashboard
+streamlit>=1.30.0
+pandas>=2.0.0
+
+# Dev / eval
+pytest>=8.0.0
