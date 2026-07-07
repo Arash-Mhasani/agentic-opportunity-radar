@@ -1,7 +1,4 @@
-# Kaggle Writeup draft — paste into the competition's "New Writeup" form
-
-> Delete this header block before submitting. Fill in the two ALL-CAPS placeholders
-> (repo URL, video URL) once you have them.
+# Kaggle Writeup — paste everything below the line into the competition's "New Writeup" form
 
 ---
 
@@ -64,7 +61,6 @@ tactile sensing from motor-current signals alone, no hardware.
 ### Try it
 
 - **Code (public repo):** https://github.com/Arash-Mhasani/agentic-opportunity-radar
-- **Video demo:** YOUR_VIDEO_URL
 - Zero-key hermetic mode: `RADAR_OFFLINE=1 python agentic_radar/core/orchestrator.py`
 - Gates: `pytest agentic_radar/tests -q` (38 passed) and
   `python agentic_radar/evals/run_evals.py --offline` (8/8, drift ok)
